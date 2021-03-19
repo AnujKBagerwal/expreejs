@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const ErrorHandler = require('../errors/ErrorHandler');
-let products = require('../products');
-// let products = [];
+// let products = require('../products');
+let products = [];
 
 router.get('/products', (req, res) => {
   res.render('products', {
