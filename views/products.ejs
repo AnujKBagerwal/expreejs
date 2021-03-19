@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- thing we need to use not escapse we are using - sign -->
+    <%- include('../partials/head.ejs') %>
+        <!-- use = to display in screen otherwise it will use value not display -->
+        <title>
+            <%= title %>
+        </title>
+</head>
+
+<body>
+    <%- include('../partials/nav.ejs') %>
+        <div class="container mt-4">
+            <h3>Our Products</h3>
+        </div>
+        <div id="app" class="container mt-4"></div>
+        <%- include('../partials/scripts.ejs') %>
+</body>
+
+</html>
