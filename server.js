@@ -32,4 +32,9 @@ app.use(express.json());
 app.use(mainRouter);
 app.use(productRouter);
 
+// custom error Handling
+app.use((req, res, next) => {
+  return res.json({ message: 'Page Not Found !!!' });
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -48,7 +48,19 @@ const App = () => {
       });
   };
 
-  console.log('form', form);
+  const deleteProduct = (productId) => {
+    fetch(`/api/products/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        fetchProducts();
+      });
+  };
 
   return (
     <div>
@@ -87,7 +99,7 @@ const App = () => {
             <div>
               <strong> {product.name}: </strong>${product.price}
             </div>
-            <button className='btn'>
+            <button className='btn' onClick={() => deleteProduct(product.id)}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='16'

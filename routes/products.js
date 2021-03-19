@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const products = require('../products');
+let products = require('../products');
 
 router.get('/products', (req, res) => {
   res.render('products', {
@@ -26,4 +26,10 @@ router.post('/api/products', (req, res) => {
   products.push(newProduct);
   res.json(newProduct);
 });
+
+router.delete('/api/products/:productId', (req, res) => {
+  products = products.filter((product) => req.params.productId !== product.id);
+  res.json({ status: 'OK' });
+});
+
 module.exports = router;
