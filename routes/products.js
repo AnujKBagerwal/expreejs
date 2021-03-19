@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const ErrorHandler = require('../errors/ErrorHandler');
 let products = require('../products');
+// let products = [];
 
 router.get('/products', (req, res) => {
   res.render('products', {
@@ -33,6 +34,24 @@ router.post('/api/products', (req, res, next) => {
   };
 
   products.push(newProduct);
+  res.json(newProduct);
+});
+
+router.put('/api/products', (req, res, next) => {
+  const { name, price, id } = req.body;
+  if (!name || !price) {
+    next(ErrorHandler.validationError('Name and Price Fields are Required!'));
+  }
+  const idx = products.findIndex((el) => el.id === id);
+
+  const newProduct = {
+    id,
+    name,
+    price,
+  };
+
+  products[idx] = newProduct;
+
   res.json(newProduct);
 });
 
