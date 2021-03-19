@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const productRouter = require('./routes/products');
 const mainRouter = require('./routes/index');
+const ErrorHandler = require('./errors/ErrorHandler');
 const port = process.env.PORT || 8080;
 
 // store value to reuse and to get
@@ -35,6 +36,25 @@ app.use(productRouter);
 // custom error Handling
 app.use((req, res, next) => {
   return res.json({ message: 'Page Not Found !!!' });
+});
+
+// Express Error Handling MiddleWare
+app.use((err, req, res, next) => {
+  if (err instanceof ErrorHandler) {
+    res.status(err.status).json({
+      error: {
+        status: err.status,
+        message: err.message,
+      },
+    });
+  } else {
+    res.status(500).json({
+      error: {
+        status: err.status,
+        message: err.message,
+      },
+    });
+  }
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
