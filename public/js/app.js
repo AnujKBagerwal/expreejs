@@ -15,6 +15,7 @@ const App = () => {
   const ToggleModal = () => {
     setModal(!modal);
   };
+
   const fetchProducts = () => {
     fetch('/api/products')
       .then((res) => res.json())
@@ -44,7 +45,7 @@ const App = () => {
       return;
     }
     let requestMethod = '';
-    if (form.id) {
+    if (form._id) {
       requestMethod = 'PUT';
     } else {
       requestMethod = 'POST';
@@ -168,7 +169,7 @@ const App = () => {
       <ul className='list-group mt-4'>
         {products.map((product) => (
           <li
-            key={product.id}
+            key={product._id}
             className='list-group-item d-flex   bd-highlight'
           >
             <div className='flex-grow-1 bd-highlight'>
@@ -193,7 +194,10 @@ const App = () => {
               </button>
             </div>
             <div className='bd-highlight'>
-              <button className='btn' onClick={() => deleteProduct(product.id)}>
+              <button
+                className='btn'
+                onClick={() => deleteProduct(product._id)}
+              >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='16'

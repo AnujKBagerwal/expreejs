@@ -5,6 +5,9 @@ const productRouter = require('./routes/products');
 const mainRouter = require('./routes/index');
 const ErrorHandler = require('./errors/ErrorHandler');
 const port = process.env.PORT || 8080;
+const User = require('./routes/user');
+const mongoose = require('mongoose');
+require('dotenv/config');
 
 // store value to reuse and to get
 app.set('view engine', 'ejs');
@@ -23,6 +26,9 @@ app.use(express.static('public'));
 
 // create middleware to accept json data
 app.use(express.json());
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // create middleware to submit classic form submit
 // when form submit it will reload page
@@ -56,5 +62,27 @@ app.use((err, req, res, next) => {
     });
   }
 });
+
+mongoose.connect(
+  'mongodb+srv://admin:admin123@cluster0.wmxcd.mongodb.net/test',
+  {
+    useNewUrlParser: 'true',
+    useUnifiedTopology: true,
+  }
+);
+mongoose.connection.on('error', (err) => {
+  console.log('err', err);
+});
+mongoose.connection.on('connected', (err, res) => {
+  console.log('mongoose is connected');
+});
+
+// mongoose.connect(
+//   'mongodb+srv://admin:admin123@cluster0.wmxcd.mongodb.net/test',
+//   { useNewUrlParser: true, useUnifiedTopology: true },
+//   (req, res) => {
+//     console.log('connected to database');
+//   }
+// );
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
