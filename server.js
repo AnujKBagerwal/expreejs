@@ -70,19 +70,13 @@ mongoose.connect(
     useUnifiedTopology: true,
   }
 );
+
 mongoose.connection.on('error', (err) => {
   console.log('err', err);
 });
+
 mongoose.connection.on('connected', (err, res) => {
   console.log('mongoose is connected');
 });
-
-// mongoose.connect(
-//   'mongodb+srv://admin:admin123@cluster0.wmxcd.mongodb.net/test',
-//   { useNewUrlParser: true, useUnifiedTopology: true },
-//   (req, res) => {
-//     console.log('connected to database');
-//   }
-// );
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
